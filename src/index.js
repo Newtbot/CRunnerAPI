@@ -24,8 +24,9 @@ class execAPI {
 	//method for passing code to api
 	async toapi(code, lang) {
 		try {
-			//encode base64
+			//Buffer.from(str, 'base64') andbuf.toString('base64').
 			const base64 = btoa(code);
+            console.log(code)
 
 			let toapi = this.url + "/run";
 			let APIpayload = `cd /root;echo "${base64}"|base64 --decode| ${lang}`;
@@ -34,13 +35,27 @@ class execAPI {
 			});
 			let data = response.data.res;
 			console.log(data);
+            this.decode(data)
 		} catch (error) {
 			if (error.response) {
 				console.log(error.response);
 			}
 		}
-		//method to decode
 	}
+    //method to decode
+    async decode(data){
+        try{
+            let decode = atob(data)
+            
+            console.log(decode)
+            
+
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+
 }
 
 /*
